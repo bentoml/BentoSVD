@@ -148,10 +148,15 @@ params_sample = Params()
     output=File(mime_type="video/mp4"),
 )
 async def generate(img: PIL_Image, params: Params):
-    fps_id = params.fps_id
+    if params.motion_bucket_id > 255:
+        print(
+            "WARNING: High motion bucket! This may lead to suboptimal performance."
+        )
+
     params_d = params.dict()
     tensor = preprocess_image(img)
+
     samples = await runner.generate.async_run(tensor, **params_d)
-    video_bytes = postprocess_samples(samples, fps_id)
+    video_bytes = postprocess_samples(samples, params.fps_id)
     f = io.BytesIO(video_bytes)
     return f

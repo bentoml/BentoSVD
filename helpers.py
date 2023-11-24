@@ -106,20 +106,14 @@ def preprocess_image(image: Image) -> torch.Tensor:
     tensor = tensor * 2.0 - 1.0
 
     tensor = tensor.unsqueeze(0)
-    return tensor
+
     H, W = tensor.shape[2:]
-    assert tensor.shape[1] == 3
-    F = 8
-    C = 4
-    shape = (num_frames, C, H // F, W // F)
     if (H, W) != (576, 1024):
         print(
             "WARNING: The conditioning frame you provided is not 576x1024. This leads to suboptimal performance as model was only trained on 576x1024. Consider increasing `cond_aug`."
         )
-    if motion_bucket_id > 255:
-        print(
-            "WARNING: High motion bucket! This may lead to suboptimal performance."
-        )
+
+    return tensor
 
 
 def postprocess_samples(samples: NDArray, fps_id: int) -> bytes:
