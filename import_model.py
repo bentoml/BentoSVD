@@ -2,7 +2,7 @@ import huggingface_hub
 import bentoml
 from bentoml.models import ModelContext
 
-from model_version import MODEL_VERSION
+from config import MODEL_VERSION
 
 MODEL_VERSION_MAPPING = {
     "svd": (
