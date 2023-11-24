@@ -30,6 +30,7 @@ def import_model(model_version):
     with bentoml.models.create(
             model_name,
             metadata=dict(filename=filename, model_version=model_version),
+            module="bentoml.pytorch",
             context=ModelContext(framework_name="", framework_versions={}),
             signatures={},
     ) as bento_model:
