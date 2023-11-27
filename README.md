@@ -97,6 +97,9 @@ curl -X 'POST' \
 }' --output generated_video.mp4
 ```
 
+> [!NOTE]
+> If you use the Swagger UI to send requests, you may see some strange characters as the output. This is because the Swagger UI is trying to display the binary data of the video content as text, which is not human-readable. Therefore, for this project, I don’t recommend you send a request using the Swagger UI.
+
 This is the image used in the request:
 
 ![sample](/assets/sample.png)
@@ -109,7 +112,7 @@ Returned output (leaves blowing and cloud moving):
 
 A [Bento](https://docs.bentoml.com/en/latest/concepts/bento.html) in BentoML is a deployable artifact including all the source code, models, data files, and dependencies. Once a Bento is built, you can containerize it as a Docker image or distribute it on BentoCloud for better management, scalability and observability.
 
-The `bentofile.yaml` file required to build a Bento is ready available in the project directory with some basic configurations, while you can also customize it as needed. See [Bento build options](https://docs.bentoml.com/en/latest/concepts/bento.html#bento-build-options) to learn more.
+The `bentofile.yaml` file required to build a Bento is already available in the project directory with some basic configurations, while you can also customize it as needed. See [Bento build options](https://docs.bentoml.com/en/latest/concepts/bento.html#bento-build-options) to learn more.
 
 To build a Bento, run:
 
@@ -146,7 +149,7 @@ To push the Bento to BentoCloud, [log in to BentoCloud](https://docs.bentoml.com
 bentoml push BENTO_TAG
 ```
 
-You can then deploy the Bento on BentoCloud.
+You can then [deploy the Bento](https://docs.bentoml.com/en/latest/bentocloud/how-tos/deploy-bentos.html) on BentoCloud.
 
 ## Contribution
 
