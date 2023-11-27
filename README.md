@@ -1,15 +1,15 @@
 ## Introduction
 
-Stable Video Diffusion (SVD) is a foundation model for generative video based on the image model Stable Diffusion. It comes in the form of two primary image-to-video models, SVD and SVD-XT, capable of generating 14 and 25 frames at customizable frame rates between 3 and 30 frames per second.
+[Stable Video Diffusion (SVD)](https://stability.ai/news/stable-video-diffusion-open-ai-video-model) is a foundation model for generative video based on the image model Stable Diffusion. It comes in the form of two primary image-to-video models, SVD and SVD-XT, capable of generating 14 and 25 frames at customizable frame rates between 3 and 30 frames per second.
 
 This sample project is designed to streamline the process of serving and deploying SVD models in production through BentoML, eliminating the setup and configuration complexity with such models.
 
 This project supports the following SVD models:
 
-- [stable-video-diffusion-img2vid](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/blob/main/svd.safetensors)
-- [stable-video-diffusion-img2vid-decoder](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/blob/main/svd_image_decoder.safetensors)
-- [stable-video-diffusion-img2vid-xt](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/blob/main/svd_xt.safetensors)
-- [stable-video-diffusion-img2vid-xt-decoder](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/blob/main/svd_xt_image_decoder.safetensors)
+- [stable-video-diffusion-img2vid](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/blob/main/svd.safetensors): Generates video sequences of 14 frames.
+- [stable-video-diffusion-img2vid-decoder](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/blob/main/svd_image_decoder.safetensors): Generates video sequences of 14 frames using the standard frame-wise decoder.
+- [stable-video-diffusion-img2vid-xt](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/blob/main/svd_xt.safetensors): Generates video sequences of 25 frames.
+- [stable-video-diffusion-img2vid-xt-decoder](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid-xt/blob/main/svd_xt_image_decoder.safetensors): Generates video sequences of 25 frames using the standard frame-wise decoder.
 
 ## Get started
 
@@ -105,7 +105,7 @@ Returned output (leaves blowing and cloud moving):
 
 ![output-image](/assets/output.gif)
 
-### **Build a Bento**
+### Build a Bento
 
 A [Bento](https://docs.bentoml.com/en/latest/concepts/bento.html) in BentoML is a deployable artifact including all the source code, models, data files, and dependencies. Once a Bento is built, you can containerize it as a Docker image or distribute it on BentoCloud for better management, scalability and observability.
 
