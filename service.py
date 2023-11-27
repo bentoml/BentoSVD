@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import os
 import typing as t
 
 import bentoml
@@ -22,7 +23,13 @@ if t.TYPE_CHECKING:
     from PIL.Image import Image as PIL_Image
     from numpy.typing import NDArray
 
-bento_model = bentoml.models.get(MODEL_VERSION)
+LOWVRAM_MODE = True
+if "LOWVRAM_MODE" in os.environ:
+    if os.environ["LOWVRAM_MODE"].lower() in ("0", "false"):
+        LOWVRAM_MODE = False
+
+svd_model = bentoml.models.get(MODEL_VERSION)
+clip_model = bentoml.models.get("clip-vit-h-14-laion")
 
 class SVDRunnable(bentoml.Runnable):
     SUPPORTED_RESOURCES = ('nvidia.com/gpu', 'cpu')
@@ -40,14 +47,18 @@ class SVDRunnable(bentoml.Runnable):
         self.num_steps = _config_d["num_steps"]
 
         config_str = f"configs/{MODEL_VERSION}.yaml"
-        model_filename: str = bento_model.info.metadata["filename"]
-        model_path = bento_model.path_of(model_filename)
+        model_filename: str = svd_model.info.metadata["filename"]
+        model_path = svd_model.path_of(model_filename)
+        clip_model_filename: str = clip_model.info.metadata["filename"]
+        clip_model_path = clip_model.path_of(clip_model_filename)
         self.model = load_svd_model(
             config_str,
             self.device,
             self.num_frames,
             self.num_steps,
             model_path,
+            clip_model_path,
+            LOWVRAM_MODE,
         )
 
     @bentoml.Runnable.method(batchable=False)
@@ -128,7 +139,7 @@ class SVDRunnable(bentoml.Runnable):
 runner = bentoml.Runner(
     SVDRunnable,
     name=f"{MODEL_VERSION}-runner",
-    models=[bento_model]
+    models=[svd_model, clip_model]
 )
 
 svc = bentoml.Service(f"{MODEL_VERSION}-service", runners=[runner])

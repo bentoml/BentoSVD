@@ -41,8 +41,34 @@ def import_model(model_version):
             local_dir_use_symlinks=False,
         )
 
-    return bento_model
+        return bento_model
+
+
+def import_clip_model():
+
+    bento_model_name = "clip-vit-h-14-laion"
+    filename = "open_clip_pytorch_model.bin"
+
+    try:
+        bentoml.models.get(bento_model_name)
+    except bentoml.exceptions.NotFound:
+        with bentoml.models.create(
+                bento_model_name,
+                metadata=dict(filename=filename),
+                module="bentoml.pytorch",
+                context=ModelContext(framework_name="", framework_versions={}),
+                signatures={},
+        ) as bento_model:
+            huggingface_hub.hf_hub_download(
+                repo_id="laion/CLIP-ViT-H-14-laion2B-s32B-b79K",
+                filename=filename,
+                local_dir=bento_model.path_of("/"),
+                local_dir_use_symlinks=False,
+            )
+
+            return bento_model
 
 
 if __name__ == "__main__":
     import_model(MODEL_VERSION)
+    import_clip_model()

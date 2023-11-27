@@ -67,12 +67,18 @@ def load_svd_model(
     num_frames: int,
     num_steps: int,
     model_path: str,
+    clip_model_path: str,
+    lowvram_mode: bool,
 ):
 
     from sgm.util import instantiate_from_config
 
     config = OmegaConf.load(config_str)
     config.model.params.ckpt_path = model_path
+    config.model.params.conditioner_config.params.emb_models[
+        0
+    ].params.open_clip_embedding_config.params.version = clip_model_path
+
     if device == "cuda":
         config.model.params.conditioner_config.params.emb_models[
             0
@@ -83,8 +89,14 @@ def load_svd_model(
         num_frames
     )
     if device == "cuda":
-        with torch.device(device):
-            model = instantiate_from_config(config.model).to(device).eval()
+        if lowvram_mode:
+            model = instantiate_from_config(config.model)
+            model.model.half()
+            with torch.device(device):
+                model = model.cuda().eval()
+        else:
+            with torch.device(device):
+                model = instantiate_from_config(config.model).to(device).eval()
     else:
         model = instantiate_from_config(config.model).to(device).eval()
     return model
