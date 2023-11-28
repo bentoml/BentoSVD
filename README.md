@@ -31,8 +31,8 @@ You have installed Python 3.8 (or later) and `pip`.
 Clone the GitHub repository and navigate to the project directory.
 
 ```bash
-git clone https://github.com/bentoml/bentoml-svd
-cd bentoml-svd
+git clone https://github.com/bentoml/BentoSVD
+cd BentoSVD
 ```
 
 For dependency isolation, we suggest you create a virtual environment.
@@ -132,15 +132,15 @@ $ bentoml build
 ██████╔╝███████╗██║ ╚████║   ██║   ╚██████╔╝██║ ╚═╝ ██║███████╗
 ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚══════╝
 
-Successfully built Bento(tag="svd-service:csqechem7w5fqo4n").
+Successfully built Bento(tag="svd-service:vhbdipunssasljo4").
 
 Possible next steps:
 
  * Containerize your Bento with `bentoml containerize`:
-    $ bentoml containerize svd-service:csqechem7w5fqo4n  [or bentoml build --containerize]
+    $ bentoml containerize svd-service:vhbdipunssasljo4  [or bentoml build --containerize]
 
  * Push to BentoCloud with `bentoml push`:
-    $ bentoml push svd-service:csqechem7w5fqo4n [or bentoml build --push]
+    $ bentoml push svd-service:vhbdipunssasljo4 [or bentoml build --push]
 ```
 
 To build a Docker image for the Bento, run:
