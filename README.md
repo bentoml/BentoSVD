@@ -1,10 +1,19 @@
+<div align="center">
+    <h1 align="center">BentoSVD</h1>
+    <br>
+    Serve and deploy Stable Video Diffusion (SVD) models in production without any setup hassles.<br>
+    <i>Powered by BentoML 🍱</i>
+    <br>
+</div>
+<br>
+
 ## Introduction
 
 [Stable Video Diffusion (SVD)](https://stability.ai/news/stable-video-diffusion-open-ai-video-model) is a foundation model for generative video based on the image model Stable Diffusion. It comes in the form of two primary image-to-video models, SVD and SVD-XT, capable of generating 14 and 25 frames at customizable frame rates between 3 and 30 frames per second.
 
-This sample project is designed to streamline the process of serving and deploying SVD models in production through BentoML, eliminating the setup and configuration complexity with such models.
+This sample project BentoSVD is designed to streamline the process of serving and deploying SVD models in production, eliminating the setup and configuration complexity with such models.
 
-This project supports the following SVD models:
+BentoSVD supports the following SVD models:
 
 - [stable-video-diffusion-img2vid](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/blob/main/svd.safetensors): Generates video sequences of 14 frames.
 - [stable-video-diffusion-img2vid-decoder](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid/blob/main/svd_image_decoder.safetensors): Generates video sequences of 14 frames using the standard frame-wise decoder.
@@ -29,8 +38,8 @@ cd bentoml-svd
 For dependency isolation, we suggest you create a virtual environment.
 
 ```bash
-python -m venv test
-source test/bin/activate
+python -m venv bento-svd
+source bento-svd/bin/activate
 ```
 
 Install the required dependencies.
@@ -65,9 +74,9 @@ The model is saved to the BentoML Model Store, a centralized repository for mana
 ```bash
 $ bentoml models list
 
-Tag                      Module           Size      Creation Time
-svd_xt:ulk4jzem2suhrv2a  bentoml.pytorch  8.90 GiB  2023-11-27 10:25:38
-svd:anbmkjem7g5fqo4n     bentoml.pytorch  8.90 GiB  2023-11-27 07:46:02
+Tag                                   Module           Size      Creation Time
+clip-vit-h-14-laion:wj65momnsoasljo4  bentoml.pytorch  3.67 GiB  2023-11-28 02:13:19
+svd:tsky3dunsoasljo4                  bentoml.pytorch  8.90 GiB  2023-11-28 02:12:42
 ```
 
 Run `bentoml serve` to start a server locally, which is powered by the model defined in `config.py`. The server is accessible at http://0.0.0.0:3000.
@@ -75,9 +84,9 @@ Run `bentoml serve` to start a server locally, which is powered by the model def
 ```bash
 $ bentoml serve service:svc
 
-2023-11-27T03:37:46+0000 [INFO] [cli] Environ for worker 0: set CUDA_VISIBLE_DEVICES to 0
-2023-11-27T03:37:46+0000 [INFO] [cli] Prometheus metrics for HTTP BentoServer from "service:svc" can be accessed at http://localhost:3000/metrics.
-2023-11-27T03:37:47+0000 [INFO] [cli] Starting production HTTP BentoServer from "service:svc" listening on http://0.0.0.0:3000 (Press CTRL+C to quit)
+2023-11-28T03:37:46+0000 [INFO] [cli] Environ for worker 0: set CUDA_VISIBLE_DEVICES to 0
+2023-11-28T03:37:46+0000 [INFO] [cli] Prometheus metrics for HTTP BentoServer from "service:svc" can be accessed at http://localhost:3000/metrics.
+2023-11-28T03:37:47+0000 [INFO] [cli] Starting production HTTP BentoServer from "service:svc" listening on http://0.0.0.0:3000 (Press CTRL+C to quit)
 ```
 
 To interact with the server, send a request via `curl`. Replace `test_image.png` with your own image.
@@ -96,9 +105,6 @@ curl -X 'POST' \
   "seed": null
 }' --output generated_video.mp4
 ```
-
-> [!NOTE]
-> If you use the Swagger UI to send requests, you may see some strange characters as the output. This is because the Swagger UI is trying to display the binary data of the video content as text, which is not human-readable. Therefore, for this project, I don’t recommend you send a request using the Swagger UI.
 
 This is the image used in the request:
 
