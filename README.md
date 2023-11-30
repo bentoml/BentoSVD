@@ -89,6 +89,8 @@ $ bentoml serve service:svc
 2023-11-28T03:37:47+0000 [INFO] [cli] Starting production HTTP BentoServer from "service:svc" listening on http://0.0.0.0:3000 (Press CTRL+C to quit)
 ```
 
+Note: If the GPU is not as powerful as A100, the generation time needed may exceed 1 minute. In this case, you need to bump the timeout setting higher by applying custom configuration using `BENTOML_CONFIG=bentoml_configuration.yaml bentoml serve service:svc`.
+
 To interact with the server, send a request via `curl`. Replace `test_image.png` with your own image.
 
 ```bash
