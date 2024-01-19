@@ -11,7 +11,7 @@ MODEL_ID = "stabilityai/stable-video-diffusion-img2vid-xt"
 
 @bentoml.service(
     resources={
-        "GPU": 1,
+        "gpu": 1,
         "memory": "16Gi",
     },
     traffic={"timeout": 300},
