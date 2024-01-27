@@ -44,7 +44,7 @@ class SVDService:
         generator = torch.manual_seed(seed) if seed is not None else None
         image = image.resize((1024, 576))
         image = image.convert("RGB")
-        output_path = os.path.join(context.directory, "output.mp4")
+        output_path = os.path.join(context.temp_dir, "output.mp4")
 
         frames = self.pipe(
             image, decode_chunk_size=decode_chunk_size, generator=generator,
