@@ -1,8 +1,8 @@
-bentoml>=1.2.0a0
-diffusers
-accelerate
-opencv-python>=4.6.0.66
-torch>=2.0.1
-transformers>=4.30.0
-triton>=2.0.0
-xformers>=0.0.20
+bentoml>=1.2.0a6
+diffusers==0.25.1
+accelerate==0.26.1
+opencv-python==4.9.0.80
+torch==2.1.2
+transformers==4.36.2
+triton==2.1.0
+xformers==0.0.23.post1
