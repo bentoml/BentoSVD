@@ -12,7 +12,9 @@ MODEL_ID = "stabilityai/stable-video-diffusion-img2vid-xt"
 @bentoml.service(
     resources={
         "gpu": 1,
-        "memory": "16Gi",
+        "gpu_type": "nvidia-l4",
+        # we can also specify GPU memory requirement:
+        # "memory": "16Gi",
     },
     traffic={"timeout": 300},
 )
