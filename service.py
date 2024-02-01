@@ -38,7 +38,7 @@ class StableDiffusionVideo:
             image: Image,
             decode_chunk_size: int = 2,
             seed: t.Optional[int] = None,
-    ) -> Path:
+    ) -> t.Annotated[Path, bentoml.validators.ContentType("video/*")]:
         import torch
         from diffusers.utils import load_image, export_to_video
 
