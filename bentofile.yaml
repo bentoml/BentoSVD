@@ -1,13 +1,10 @@
-service: "service.py:svc"
+service: "service.py:StableDiffusionVideo"
 include:
   - "*.py"
-  - "sgm/"
-  - "configs/"
 python:
   requirements_txt: "./requirements.txt"
 docker:
     distro: debian
-    cuda_version: "12.0"
     system_packages:
       - ffmpeg
       - git
