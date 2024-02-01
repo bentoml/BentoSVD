@@ -2,7 +2,7 @@ This document demonstrates how to build an generative video application using Be
 
 ## **Prerequisites**
 
-- You have installed Python 3.8+ and `pip`. See the [Python downloads page](https://www.python.org/downloads/) to learn more.
+- You have installed Python 3.9+ and `pip`. See the [Python downloads page](https://www.python.org/downloads/) to learn more.
 - You have a basic understanding of key concepts in BentoML, such as Services. We recommend you read [Quickstart](https://docs.bentoml.com/en/latest/get-started/quickstart.html) first.
 - (Optional) We recommend you create a virtual environment for dependency isolation for this project. See Installation for details.
 - If you want to test the service locally, a Nvidia GPU with 16G VRAM is required
