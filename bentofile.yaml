@@ -1,4 +1,4 @@
-service: "service.py:SVDService"
+service: "service.py:SVD"
 include:
   - "*.py"
 python:

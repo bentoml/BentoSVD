@@ -18,7 +18,7 @@ MODEL_ID = "stabilityai/stable-video-diffusion-img2vid-xt"
     },
     traffic={"timeout": 300},
 )
-class SVDService:
+class SVD:
 
     def __init__(self) -> None:
         import torch
