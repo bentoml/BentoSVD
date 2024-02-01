@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import typing as t
 from pathlib import Path
 from PIL.Image import Image
 
@@ -16,7 +17,7 @@ MODEL_ID = "stabilityai/stable-video-diffusion-img2vid-xt"
         # we can also specify GPU memory requirement:
         # "memory": "16Gi",
     },
-    traffic={"timeout": 300},
+    traffic={"timeout": 600},
 )
 class SVD:
 
@@ -36,7 +37,7 @@ class SVD:
             self, context: bentoml.Context,
             image: Image,
             decode_chunk_size: int = 2,
-            seed: int | None = None,
+            seed: t.Optional[int] = None,
     ) -> Path:
         import torch
         from diffusers.utils import load_image, export_to_video
