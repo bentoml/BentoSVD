@@ -1,4 +1,4 @@
-bentoml>=1.2.0a6
+bentoml>=1.2.0rc1
 diffusers==0.25.1
 accelerate==0.26.1
 opencv-python==4.9.0.80
