@@ -14,8 +14,6 @@ MODEL_ID = "stabilityai/stable-video-diffusion-img2vid-xt"
     resources={
         "gpu": 1,
         "gpu_type": "nvidia-l4",
-        # we can also specify GPU memory requirement:
-        # "memory": "16Gi",
     },
     traffic={"timeout": 600},
 )
