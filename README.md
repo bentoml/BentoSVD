@@ -1,15 +1,28 @@
-This document demonstrates how to build an generative video application using BentoML, powered by [diffusers](https://github.com/bentoml/BentoSD2Upscaler) and [Stable Video Diffusion (SVD)](https://stability.ai/news/stable-video-diffusion-open-ai-video-model).
+<div align="center">
+    <h1 align="center">BentoSVD</h1>
+    <br>
+    <strong>Serve and deploy Stable Video Diffusion (SVD) models in production without any setup hassles.<br></strong>
+    <i>Powered by BentoML 🍱</i>
+    <br>
+</div>
+<br>
 
-## **Prerequisites**
+Stable Video Diffusion (SVD) is a foundation model for generative video based on the image model Stable Diffusion. It comes in the form of two primary image-to-video models, SVD and SVD-XT, capable of generating 14 and 25 frames at customizable frame rates between 3 and 30 frames per second.
+
+This project is designed to streamline the process of serving and deploying SVD models in production, eliminating the setup and configuration complexity with such models. It builds a video generation application using BentoML, powered by [diffusers](https://github.com/bentoml/BentoSD2Upscaler) and [Stable Video Diffusion (SVD)](https://stability.ai/news/stable-video-diffusion-open-ai-video-model).
+
+## Prerequisites
 
 - You have installed Python 3.9+ and `pip`. See the [Python downloads page](https://www.python.org/downloads/) to learn more.
-- You have a basic understanding of key concepts in BentoML, such as Services. We recommend you read [Quickstart](https://docs.bentoml.com/en/latest/get-started/quickstart.html) first.
-- (Optional) We recommend you create a virtual environment for dependency isolation for this project. See Installation for details.
-- If you want to test the service locally, a Nvidia GPU with 16G VRAM is required
+- You have a basic understanding of key concepts in BentoML, such as Services. We recommend you read [Quickstart](https://docs.bentoml.com/en/1.2/get-started/quickstart.html) first.
+- (Optional) We recommend you create a virtual environment for dependency isolation for this project. See the [Conda documentation](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) or the [Python documentation](https://docs.python.org/3/library/venv.html) for details.
+- If you want to test the Service locally, a Nvidia GPU with 16G VRAM is required.
 
 ## Install dependencies
 
 ```bash
+git clone https://github.com/bentoml/BentoSVD.git
+cd BentoSVD
 pip install -r requirements.txt
 ```
 
@@ -24,13 +37,13 @@ $ bentoml serve .
 Loading pipeline components...: 100%
 ```
 
-The server is now active at [http://0.0.0.0:3000](http://0.0.0.0:3000/). You can interact with it using Swagger UI or in other different ways.
+The server is now active at [http://localhost:3000](http://localhost:3000/). You can interact with it using the Swagger UI or in other different ways.
 
 CURL
 
 ```bash
 curl -X 'POST' \
-  'http://a4000box.jkdf.win:3000/generate' \
+  'http://localhost:3000/generate' \
   -H 'accept: */*' \
   -H 'Content-Type: multipart/form-data' \
   -F 'image=@assets/sample.png;type=image/png' \
@@ -39,16 +52,30 @@ curl -X 'POST' \
   -o generated.mp4
 ```
 
-## Deploy the application to BentoCloud
+Python client
 
-After the Service is ready, you can deploy the application to BentoCloud for better management and scalability. A configuration YAML file (`bentofile.yaml`) is used to define the build options for your application. It is used for packaging your application into a Bento. See [Bento build options](https://docs.bentoml.com/en/latest/concepts/bento.html#bento-build-options) to learn more.
+```python
+import bentoml
+from pathlib import Path
 
-Make sure you have logged in to BentoCloud, then run the following command in your project directory to deploy the application to BentoCloud. Under the hood, this commands automatically builds a Bento, push the Bento to BentoCloud, and deploy it on BentoCloud.
+with bentoml.SyncHTTPClient("http://localhost:3000/") as client:
+    result = client.generate(
+        decode_chunk_size=2,
+        image=@assets/sample.png,
+        seed=0,
+    )
+```
+
+## Deploy to BentoCloud
+
+After the Service is ready, you can deploy the application to BentoCloud for better management and scalability. [Sign up](https://www.bentoml.com/) if you haven't got a BentoCloud account.
+
+Make sure you have [logged in to BentoCloud](https://docs.bentoml.com/en/latest/bentocloud/how-tos/manage-access-token.html), then run the following command to deploy it.
 
 ```bash
 bentoml deploy .
 ```
 
-**Note**: Alternatively, you can manually build the Bento, containerize the Bento as a Docker image, and deploy it in any Docker-compatible environment. See [Docker deployment](https://docs.bentoml.org/en/latest/concepts/deploy.html#docker) for details.
-
 Once the application is up and running on BentoCloud, you can access it via the exposed URL.
+
+**Note**: For custom deployment in your own infrastructure, use [BentoML to generate an OCI-compliant image](https://docs.bentoml.com/en/latest/guides/containerization.html).
