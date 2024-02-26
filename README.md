@@ -1,15 +1,10 @@
 <div align="center">
-    <h1 align="center">BentoSVD</h1>
-    <br>
-    <strong>Serve and deploy Stable Video Diffusion (SVD) models in production without any setup hassles.<br></strong>
-    <i>Powered by BentoML 🍱</i>
-    <br>
+    <h1 align="center">Serving Stable Video Diffusion with BentoML</h1>
 </div>
-<br>
 
-Stable Video Diffusion (SVD) is a foundation model for generative video based on the image model Stable Diffusion. It comes in the form of two primary image-to-video models, SVD and SVD-XT, capable of generating 14 and 25 frames at customizable frame rates between 3 and 30 frames per second.
+[Stable Video Diffusion (SVD)](https://huggingface.co/stabilityai/stable-video-diffusion-img2vid) is a foundation model for generative video based on the image model Stable Diffusion. It comes in the form of two primary image-to-video models, SVD and SVD-XT, capable of generating 14 and 25 frames at customizable frame rates between 3 and 30 frames per second.
 
-This project is designed to streamline the process of serving and deploying SVD models in production, eliminating the setup and configuration complexity with such models. It builds a video generation application using BentoML, powered by [diffusers](https://github.com/bentoml/BentoSD2Upscaler) and [Stable Video Diffusion (SVD)](https://stability.ai/news/stable-video-diffusion-open-ai-video-model).
+This is a BentoML example project, demonstrating how to build a video generation inference API server, using the SVD model. See [here](https://github.com/bentoml/BentoML?tab=readme-ov-file#%EF%B8%8F-what-you-can-build-with-bentoml) for a full list of BentoML example projects.
 
 ## Prerequisites
 
